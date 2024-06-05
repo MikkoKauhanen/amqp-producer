@@ -12,16 +12,20 @@ dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation 'io.quarkus:quarkus-messaging-amqp'
     //implementation 'io.quarkus:quarkus-smallrye-reactive-messaging-amqp'
+    implementation 'io.quarkus:quarkus-smallrye-health'
 
     implementation 'io.quarkus:quarkus-arc'
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'org.testcontainers:testcontainers:1.17.6'
+
     testImplementation 'org.awaitility:awaitility:4.2.0'
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
     testCompileOnly 'org.projectlombok:lombok:1.18.24'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
     testImplementation "org.testcontainers:activemq:1.19.7"
+    testImplementation 'io.rest-assured:rest-assured'
+
 }
 
 group 'com.miggo'

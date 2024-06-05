@@ -8,6 +8,14 @@ Quarkus version 3.10.1
 # ActiveMQ
 ActiveMQ amqp transport.producerCredit is set to 100 to limit the time it takes to run ouf of credits.
 
-# MyMessagingApplicationTest
-This test continuously produces messages and restarts the activemq container every 20 seconds. Depending how lucky you are the test might fail after first 100 messages.
+# NoMoreRequestsTest
+Tries to reproduce the issue where producer does not anymore produce messages
+
+# ConnectionsDuringDowntimeTest
+Tries to reproduce the issue where amount of connections grows during broker downtime
+
+# HealthCheckTest
+Tries to reproduce the issue where amount of connections grows during broker downtime due to health check endpoint calls
+
+
 

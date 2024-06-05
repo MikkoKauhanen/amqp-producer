@@ -6,7 +6,6 @@ import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.FixedHostPortGenericContainer;
 import org.testcontainers.containers.GenericContainer;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class ActiveMQClassicResource implements QuarkusTestResourceLifecycleManager {
@@ -14,14 +13,20 @@ public class ActiveMQClassicResource implements QuarkusTestResourceLifecycleMana
     GenericContainer amq = new FixedHostPortGenericContainer("apache/activemq-classic:5.18.3")
             .withFixedExposedPort(5672,5672)
             .withFixedExposedPort(8161,8161)
+            .withFixedExposedPort(1099, 1099)
+            .withFixedExposedPort(1098, 1098)
+            .withEnv("ACTIVEMQ_OPTS",
+                    "-Dcom.sun.management.jmxremote.authenticate=false " +
+                            "-Dcom.sun.management.jmxremote.ssl=false " +
+                            "-Djava.rmi.server.hostname=0.0.0.0")
             .withFileSystemBind("src/test/resources/activemq.xml", "/opt/apache-activemq/conf/activemq.xml", BindMode.READ_ONLY);
 
     @Override
     public Map<String, String> start() {
         amq.withStartupAttempts(5).start();
-        final String host = "localhost";
-        final String port = "5672";
-        final String adminPort = "8161";
+        final String host = amq.getHost();
+        final String port = amq.getMappedPort(5672).toString();
+        final String adminPort = amq.getMappedPort(8161).toString();
 
         final Map<String, String> config = Map.of(
                 "mp.messaging.outgoing.words-out.host", host,

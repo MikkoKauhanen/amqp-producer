@@ -65,7 +65,8 @@
             http://activemq.apache.org/jmx.html
         -->
         <managementContext>
-            <managementContext createConnector="false"/>
+            <managementContext connectorHost="0.0.0.0" createConnector="true" rmiServerPort="1098" connectorPort="1099"
+                               connectorPath="/jmxrmi"/>
         </managementContext>
 
         <!--
